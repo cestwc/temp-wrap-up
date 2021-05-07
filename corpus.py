@@ -2,6 +2,7 @@ import json
 import spacy
 from tqdm.notebook import tqdm
 
+spacy.prefer_gpu()
 nlp = spacy.load("en_core_web_sm")
 
 from datasets import load_dataset
