@@ -9,6 +9,7 @@ from datasets import load_dataset
 dataset = load_dataset('wikitext', 'wikitext-103-v1', split='train')
 
 from cleantext import clean
+import re
 
 def build_corpus(destiny = 'corpus.json', num = len(dataset)):
 	corpus = []
@@ -16,7 +17,7 @@ def build_corpus(destiny = 'corpus.json', num = len(dataset)):
 		datum = dataset[i]
 		if i == num:
 			break
-		datum['text'] = clean(datum['text'].replace('<unk>', 'unknown'), no_urls=True, no_emails=True, replace_with_url='URL', replace_with_email='EMAIL')
+		datum['text'] = clean(re.sub("\s@.{,3}@\s", ' ', datum['text']).replace('<unk>', 'unknown'), no_urls=True, no_emails=True, replace_with_url='URL', replace_with_email='EMAIL')
 		if len(datum['text'].split()) < 25 or len([c for c in datum['text'] if c.isalpha()]) / len(datum['text']) < 0.7:
 			pass
 		else:
