@@ -7,7 +7,7 @@ def loadmodel(modelDir, device = torch.device('cuda' if torch.cuda.is_available(
 	model = BartForConditionalGeneration.from_pretrained('facebook/bart-base')
 	model.load_state_dict(torch.load(modelDir, map_location=device))
 	model.to(device)
-	return model
+	return model, tokenizer
 
 def bartGenerate(sentence, model, device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')):    
 	inputs = tokenizer([sentence], max_length=1024, return_tensors='pt').to(device)
