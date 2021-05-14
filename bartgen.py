@@ -2,12 +2,13 @@ import torch
 import torch.nn as nn
 from transformers import BartTokenizer, BartForConditionalGeneration
 
-def loadmodel(modelDir, device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')):
-	tokenizer = BartTokenizer.from_pretrained('facebook/bart-base')
-	model = BartForConditionalGeneration.from_pretrained('facebook/bart-base')
+tokenizer = BartTokenizer.from_pretrained('facebook/bart-base')
+model = BartForConditionalGeneration.from_pretrained('facebook/bart-base')
+
+def loadmodel(modelDir, device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')):	
 	model.load_state_dict(torch.load(modelDir, map_location=device))
 	model.to(device)
-	return model, tokenizer
+	return model
 
 def bartGenerate(sentence, model, device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')):    
 	inputs = tokenizer([sentence], max_length=1024, return_tensors='pt').to(device)
