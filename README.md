@@ -19,6 +19,10 @@ corpus_file = build_corpus(drivePath + 'corpus.json', 100000)
 
 ## Usage of transfer
 ```python
+!git clone https://github.com/google-research-datasets/sentence-compression.git
+!gzip -d sentence-compression/data/comp-data.eval.json.gz
+```
+```python
 from transfer import fromSentenceCompression
 transfer_file = fromSentenceCompression('sentence-compression/data/comp-data.eval.json')
 
