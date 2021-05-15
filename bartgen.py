@@ -10,7 +10,7 @@ def loadmodel(modelDir, device = torch.device('cuda' if torch.cuda.is_available(
 	model.to(device)
 	return model
 
-def bartGenerate(sentence, model, device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')):    
+def bartGenerate(sentence, model = model, device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')):    
 	inputs = tokenizer([sentence], max_length=1024, return_tensors='pt').to(device)
 
 	# Generate Summary
