@@ -32,3 +32,19 @@ transfer_data, = data.TabularDataset.splits(
                             fields = fields
 )
 ```
+
+## Usage of stemstop
+```python
+import json
+with open(drivePath + 'nlg-datasets/' + 'corrupt-3s.json', 'r') as f:
+dataset = [json.loads(x) for x in f.readlines()]
+
+from tqdm.notebook import tqdm
+from stemstop import stemming
+
+for i in tqdm(range(len(dataset))):
+    dataset[i]['long'] = stemming(dataset[i]['long'])
+
+with open(drivePath + 'nlg-datasets/' + 'corrupt-3s3.json', 'w') as f:
+    f.writelines([json.dumps(x) + '\n' for x in dataset])
+```
