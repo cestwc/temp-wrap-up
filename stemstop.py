@@ -14,3 +14,8 @@ def stemming(sentence, nlp = spacyNLP, stop = nltkSTOP, stemmer = nltkSTEMMER):
 	doc = nlp(sentence)
 	tokens = [stemmer.stem(token.lemma_) for token in doc if token.text not in stop]
 	return ' '.join(tokens)
+
+def rmStop(sentence, nlp = spacyNLP, stop = nltkSTOP):
+	doc = nlp(sentence)
+	tokens = [token.text for token in doc if token.text not in stop and token.lemma_ not in stop]
+	return ' '.join(tokens)
