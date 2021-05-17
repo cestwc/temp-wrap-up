@@ -59,3 +59,17 @@ def synRep(sentence, nlp = spacyNLP, syn = words):
 	doc = nlp(sentence)
 	tokens = [random.choice(syn[token.text]) if token.text in syn else random.choice(syn[token.lemma_]) if token.lemma_ in syn else token.text for token in doc]
 	return ' '.join(tokens)
+
+from tqdm.notebook import tqdm
+
+def scorrupt(directory, func):
+	with open(directory, 'r') as f:
+		dataset = [json.loads(x) for x in f.readlines()]
+
+	for i in tqdm(range(len(dataset))):
+		dataset[i]['long'] = synRep(dataset[i]['long'])
+
+	with open(directory.replace('.json', '-s.json'), 'w') as f:
+		f.writelines([json.dumps(x) + '\n' for x in dataset])
+
+	return directory.replace('.json', '-s.json')  
