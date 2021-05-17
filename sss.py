@@ -19,3 +19,17 @@ def rmStop(sentence, nlp = spacyNLP, stop = nltkSTOP):
 	doc = nlp(sentence)
 	tokens = [token.text for token in doc if token.text not in stop and token.lemma_ not in stop]
 	return ' '.join(tokens)
+
+import random
+with open('wordnet-synonyms.txt', 'r') as f:
+	syns = [[w.replace('_', ' ') for w in t.split()] for t in f.readlines()]
+	
+words = {}
+for i in range(len(syns)):
+	for j in range(len(syns[i])):
+		words[syns[i][j]] = syns[i]
+		
+def synRep(sentence, nlp = spacyNLP, syn = words):
+	doc = nlp(sentence)
+	tokens = [random.choice(syn[token.lemma_]) for token in doc]
+	return ' '.join(tokens)
