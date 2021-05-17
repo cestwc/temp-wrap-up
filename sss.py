@@ -27,7 +27,10 @@ with open('wordnet-synonyms.txt', 'r') as f:
 words = {}
 for i in range(len(syns)):
 	for j in range(len(syns[i])):
-		words[syns[i][j]] = syns[i]
+		if syns[i][j] not in words:
+			words[syns[i][j]] = syns[i]
+		else:
+			words[syns[i][j]] += syns[i]
 		
 import csv
 
