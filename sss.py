@@ -68,7 +68,7 @@ def scorrupt(directory, func):
 		dataset = [json.loads(x) for x in f.readlines()]
 
 	for i in tqdm(range(len(dataset))):
-		dataset[i]['long'] = synRep(dataset[i]['long'])
+		dataset[i]['long'] = func(dataset[i]['long'])
 
 	with open(directory.replace('.json', '-s.json'), 'w') as f:
 		f.writelines([json.dumps(x) + '\n' for x in dataset])
