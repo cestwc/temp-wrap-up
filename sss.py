@@ -31,5 +31,5 @@ for i in range(len(syns)):
 		
 def synRep(sentence, nlp = spacyNLP, syn = words):
 	doc = nlp(sentence)
-	tokens = [random.choice(syn[token.lemma_]) if token.lemma_ in syn else token.text for token in doc]
+	tokens = [random.choice(syn[token.lemma_]) if token.text in syn else random.choice(syn[token.lemma_]) if token.lemma_ in syn else token.text for token in doc]
 	return ' '.join(tokens)
