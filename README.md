@@ -48,3 +48,12 @@ for i in tqdm(range(len(dataset))):
 with open(drivePath + 'nlg-datasets/' + 'corrupt-3s3.json', 'w') as f:
     f.writelines([json.dumps(x) + '\n' for x in dataset])
 ```
+
+## Usage of bart generate
+```python
+!pip install transformers
+
+from bartgen import loadmodel, bartGenerate
+from sss import stemming, synRep
+concisemodel = loadmodel(drivePath + 'tut6-netG.pt')
+```
